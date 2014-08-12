@@ -1349,4 +1349,5 @@ td.visible-print {
     border: none;
     line-height: 40px;
     margin-left: 10px;
+    outline: none;
     width: 90%; }
