@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Develo_WordpressKnowledgeBase>
+			<active>true</active>
+			<codePool>local</codePool>
+			<depends>
+				Fishpig_Wordpress
+			</depends>
+		</Develo_WordpressKnowledgeBase>
+	</modules>
+</config>

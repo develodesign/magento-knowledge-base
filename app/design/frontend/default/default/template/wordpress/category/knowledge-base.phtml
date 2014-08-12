@@ -1,0 +1,118 @@
+<?php
+/**
+ * @category    Develo
+ * @package     Develo_WordpressKnowledgeBase
+ * @uses        Develo_WordpressKnowledgeBase_Block_View
+ * @author      Paul at Develo Design <help@develodesign.co.uk>
+ */
+?>
+
+<?php
+    if( $this->loadjQuery() ) :?>
+
+    <script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS) ?>/develo/jquery-1.9.1.min.js"></script>
+    <script>jQuery.noConflict();</script>
+
+<?php endif; ?>
+
+<script>
+    var wordpressSearchUrl = '<?php echo $this->getSearchUrl() ?>';
+</script>
+
+<script src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS) ?>/develo/wordpress-knowledge-base.js"></script>
+
+<?php if( $categories = $this->getKnowledgeBaseCategories() ) : ?>
+
+    <div class="wordpress-knowledge-base">
+
+        <div class="search-container">
+            <input type="search" placeholder="<?php echo $this->__( 'Search Knowledge Base' ) ?>">
+        </div>
+
+        <div class="searching hidden">
+            <div class="bubblingG ">
+                <span id="bubblingG_1">
+                </span>
+                <span id="bubblingG_2">
+                </span>
+                <span id="bubblingG_3">
+                </span>
+            </div>
+        </div>
+
+        <div id="knowledge-base-no-results" class="alert alert-warning hidden">
+
+            <?php echo $this->__( 'Sorry, no results found in our knowledge base.' ) ?>
+
+        </div>
+
+        <div id="knowledge-base-search-results-feedback" class="alert alert-success hidden">
+
+            <?php echo $this->__( 'We have found ' ) ?>
+            <span id="number-of-search-results">0</span>
+            <?php echo $this->__( 'knowledge base item(s) that match your query.') ?>
+
+        </div>
+
+        <div class="search-results ">
+            <h2 class="hidden"><?php echo $this->__( 'Search Results' ) ?></h2>
+            <ul></ul>
+        </div>
+
+        <div class="row">
+
+            <?php foreach( $categories as $category ) : ?>
+
+                <div class="<?php echo $this->getColumnClass() ?>">
+
+                    <div class="wordpress-knowledge-base-category">
+
+                        <h2>
+                            <a href="<?php echo $category->getUrl() ?>" title="<?php echo $category->getName() ?>">
+                                <?php echo $category->getName() ?>
+                            </a>
+                        </h2>
+
+                        <p><?php echo $category->getDescription() ?></p>
+
+                        <?php $grandChildCategories = $category->getChildrenCategories(); ?>
+
+                        <?php if( $grandChildCategories->count() > 0 ) : ?>
+
+                            <?php foreach( $grandChildCategories as $grandChild ) :?>
+
+                                <div class="wordpress-knowledge-base-sub-category">
+
+                                    <h3>
+                                        <a class="toggle-link" href="<?php echo $grandChild->getUrl() ?>" title="<?php echo $grandChild->getName() ?>">
+                                            <?php echo $grandChild->getName() ?>
+                                        </a>
+                                    </h3>
+
+                                    <?php echo $this->displayPostList( $grandChild->getPostCollection() ) ?>
+
+                                </div>
+
+                            <?php endforeach; ?>
+
+                        <?php else: ?>
+
+                            <?php echo $this->displayPostList( $category->getPostCollection() ); ?>
+
+                        <?php endif; ?>
+
+                    </div>
+
+                </div>
+
+            <?php endforeach; ?>
+
+        </div>
+
+    </div>
+
+<?php else : ?>
+
+    <p><?php echo $this->__( 'We have no articles in our knowledge base at the moment.' ) ?></p>
+
+<?php endif; ?>

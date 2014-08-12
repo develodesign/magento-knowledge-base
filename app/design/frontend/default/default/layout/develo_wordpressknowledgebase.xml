@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<layout>
+	<knowledgebase_index_index>
+		<reference name="head">
+			<action method="addCss">
+				<stylesheet>wordpress-knowledgebase/app.css</stylesheet>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="wordpressknowledgebase/view" name="wp.post.category.knowledgebase" template="wordpress/category/knowledge-base.phtml">
+				<block type="wordpress/post_list" name="wordpress_post_list" as="post_list" template="wordpress/post/list.phtml" />
+			</block>
+		</reference>
+	</knowledgebase_index_index>
+</layout>
